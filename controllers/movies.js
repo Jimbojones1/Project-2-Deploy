@@ -13,6 +13,10 @@ function create(req, res){
 	req.body.nowShowing = !!req.body.nowShowing;
 	console.log(req.body, ' after');
 
+	// remove the white space in the string
+	req.body.cast = req.body.cast.replace(/\s*, \s*/g, ',')
+	req.body.cast = req.body.cast.split(',')
+
 	// THe server now tells the Model 
 	// to take the contents of the form (req.body) sent from the client
 	// and put it in the database 
@@ -22,11 +26,11 @@ function create(req, res){
 			console.log(err);
 			console.log('==========================================')
 
-			res.send('err creating check the terminal')
+			return res.send('err creating check the terminal')
 		}
 		console.log('=============== Below is the movieDoc from the db');
 		console.log(movieDoc);
-		console.log('==========================================')
+		console.log('==========================================');
 
 		// respond to the client
 		res.redirect('/')
