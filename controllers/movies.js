@@ -4,9 +4,25 @@ const Movie = require('../models/movie');
 
 module.exports = {
 	new: newMovie,
-	create
+	create, 
+	index
 }
+function index(req, res){
 
+	// Tell the model, 
+	// to go get ALL of the movies from 
+	// the database Movie is our model
+	Movie.find({}, function(err, movieDocs){
+		// moviesDocs is all of the movies
+		// from our collection in mongodb!
+		console.log(movieDocs)
+
+		// respond to the client inside the callback of the model 
+		res.render('movies/index', {movies: movieDocs, name: 'jim'})
+	})
+
+	
+}
 function create(req, res){
 	// console.log(req.body, ' contents of the form');
 	// update 
