@@ -4,6 +4,7 @@ var router = express.Router();
 const movieCtrl = require('../controllers/movies');
 /* GET users listing. */
 router.get('/new', movieCtrl.new);
+router.post('/', movieCtrl.create);
 
 
 module.exports = router;
