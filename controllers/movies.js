@@ -11,8 +11,12 @@ module.exports = {
 
 
 function show(req, res) {
-	Movie.findById(req.params.id, function(err, movie) {
-	  res.render('movies/show', { title: 'Movie Detail', movie });
+	// Movie is our model
+	// Movie Model go find the movieDocument with this id (req.params.id, from the a tag http get request from the index page) 
+	Movie.findById(req.params.id, function(err, movieDoc) {
+
+		// responding to the clinet, and passing in the movieDoc as a variable called movie into the show page
+	  res.render('movies/show', { title: 'Movie Detail', movie: movieDoc });
 	});
   }
 
@@ -35,7 +39,7 @@ function index(req, res){
 function create(req, res){
 	// console.log(req.body, ' contents of the form');
 	// update 
-	// req.body.nowShowing = !!req.body.nowShowing;
+	req.body.nowShowing = !!req.body.nowShowing;
 	console.log(req.body, ' after');
 
 	// remove the white space in the string
@@ -45,6 +49,9 @@ function create(req, res){
 	// THe server now tells the Model 
 	// to take the contents of the form (req.body) sent from the client
 	// and put it in the database 
+
+	
+
 	Movie.create(req.body, function(err, movieDoc){
 		if(err){
 			console.log('======================err')

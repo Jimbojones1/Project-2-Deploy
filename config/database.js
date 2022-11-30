@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // /movies, connect to a movies database, or create a movies database
-mongoose.connect("mongodb://127.0.0.1:27017/moviess", {
+mongoose.connect("mongodb://127.0.0.1:27017/movies", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

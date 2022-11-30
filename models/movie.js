@@ -1,33 +1,38 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 // optional shortcut to the mongoose.Schema class
 const Schema = mongoose.Schema;
 
-// The purpose of the schema is to enforce the shape 
+// Implementing a One to Many Relationship
+// One movie has Many Reviews, a review belongs to a movie
+// embed reviews in movies, since the reviews will always shown with A movie (show page)
+
+// define the embedded schema in the model file it will be embedded ( left hand side of your relationship - 'One movie has many reviews')
+const reviewSchema = new Schema(
+  {
+    content: String,
+    rating: { type: Number, min: 1, max: 5, default: 5 },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+// The purpose of the schema is to enforce the shape
 // of our documents in our movies Collection (Movie)
 const movieSchema = new Schema({
-	title: String,
-	releaseYear: Number,
-	mpaaRating: String,
-	cast: [String],
-	nowShowing: Boolean
-  });
+  title: String,
+  releaseYear: Number,
+  mpaaRating: String,
+  cast: [String],
+  nowShowing: Boolean,
+  // embedding the reviews in A movie
+  reviews: [reviewSchema] // every review that is inside of the reviews array will look like the reviewSchema
+});
 
+// movies collection (if you looked in mongdob, after you put something in it!)
+module.exports = mongoose.model("Movie", movieSchema);
 
-  mongoose.Schema.Types.Boolean.convertToTrue.add('on');
-  mongoose.Schema.Types.Boolean.convertToFalse.add(undefined);
-
-  movieSchema.pre('validate', function (next, data) {
-    console.log(data)
-    console.log('this.nowShowing -> ', this); //undefined
-    this.nowShowing = !!this.nowShowing;
-    next();
-  });
-
-  // movies collection (if you looked in mongdob, after you put something in it!)
-  module.exports = mongoose.model('Movie', movieSchema);
-
-
-  // THE POINT OF THIS FILE
-  // Is to create our model and export it
-  // OUr model can perform CRUD operations on our database
-  // typically we import the model in our controllers to use it
+// THE POINT OF THIS FILE
+// Is to create our model and export it
+// OUr model can perform CRUD operations on our database
+// typically we import the model in our controllers to use it
