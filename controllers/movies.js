@@ -14,7 +14,7 @@ function show(req, res) {
 	// Movie is our model
 	// Movie Model go find the movieDocument with this id (req.params.id, from the a tag http get request from the index page) 
 	Movie.findById(req.params.id, function(err, movieDoc) {
-
+		console.log(movieDoc)
 		// responding to the clinet, and passing in the movieDoc as a variable called movie into the show page
 	  res.render('movies/show', { title: 'Movie Detail', movie: movieDoc });
 	});
@@ -65,7 +65,7 @@ function create(req, res){
 		console.log('==========================================');
 
 		// respond to the client
-		res.redirect('/')
+		res.redirect('/movies')
 	}); // end of the callback function in Movie.create
 
 
