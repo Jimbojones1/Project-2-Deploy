@@ -13,6 +13,16 @@ const movieSchema = new Schema({
   });
 
 
+  mongoose.Schema.Types.Boolean.convertToTrue.add('on');
+  mongoose.Schema.Types.Boolean.convertToFalse.add(undefined);
+
+  movieSchema.pre('validate', function (next, data) {
+    console.log(data)
+    console.log('this.nowShowing -> ', this); //undefined
+    this.nowShowing = !!this.nowShowing;
+    next();
+  });
+
   // movies collection (if you looked in mongdob, after you put something in it!)
   module.exports = mongoose.model('Movie', movieSchema);
 

@@ -5,8 +5,17 @@ const Movie = require('../models/movie');
 module.exports = {
 	new: newMovie,
 	create, 
-	index
+	index,
+	show
 }
+
+
+function show(req, res) {
+	Movie.findById(req.params.id, function(err, movie) {
+	  res.render('movies/show', { title: 'Movie Detail', movie });
+	});
+  }
+
 function index(req, res){
 
 	// Tell the model, 
@@ -26,7 +35,7 @@ function index(req, res){
 function create(req, res){
 	// console.log(req.body, ' contents of the form');
 	// update 
-	req.body.nowShowing = !!req.body.nowShowing;
+	// req.body.nowShowing = !!req.body.nowShowing;
 	console.log(req.body, ' after');
 
 	// remove the white space in the string
