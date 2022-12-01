@@ -7,7 +7,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const moviesRouter = require('./routes/movies');
 const reviewsRouter = require('./routes/reviews');
-
+const performersRouter = require('./routes/performers');
 
 const app = express();
 
@@ -32,6 +32,7 @@ app.use('/movies', moviesRouter);
 // for nested resources we typically just mount 
 // at `/` because this no consitent prefix (refer to the routing guide)
 app.use('/', reviewsRouter);
+app.use('/', performersRouter); // many to many resource
 
 
 

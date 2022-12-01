@@ -23,7 +23,6 @@ const movieSchema = new Schema({
   title: String,
   releaseYear: Number,
   mpaaRating: String,
-  cast: [String],
   nowShowing: Boolean,
   // embedding the reviews in A movie
   reviews: [reviewSchema] // every review that is inside of the reviews array will look like the reviewSchema
