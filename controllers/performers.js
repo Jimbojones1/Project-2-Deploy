@@ -1,9 +1,31 @@
 const Performer = require('../models/performer');
+const Movie = require('../models/movie');
+const movie = require('../models/movie');
 
 module.exports = {
   new: newPerformer,
-  create
+  create,
+  addToCast
 };
+
+// This function is associating a peformer with a Movie
+// Many to many relationship
+function addToCast(req, res){
+
+  // req.params.id represents the movies id, check the performers routers, 
+  // and look at the form on the movie show page for the performers, thats where we are defining the value of :id 
+  Movie.findById(req.params.id, function(err, movieDoc){
+    // add performerId to the movieDoc's cast array
+    movieDoc.cast.push(req.body.performerId); // req.body, is the contents of the form, performerId is the name property at that form
+    // mutating a document ^ what do we have to do!
+    // save, to tell the database that we changed the document
+    movieDoc.save(function(err){
+      // redirect back to the show page!
+      res.redirect(`/movies/${movieDoc._id}`)
+    })
+  })
+
+}
 
 function create(req, res) {
   // Need to "fix" date formatting to prevent day off by 1
