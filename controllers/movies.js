@@ -42,9 +42,9 @@ function create(req, res){
 	req.body.nowShowing = !!req.body.nowShowing;
 	console.log(req.body, ' after');
 
-	// remove the white space in the string
-	req.body.cast = req.body.cast.replace(/\s*, \s*/g, ',')
-	req.body.cast = req.body.cast.split(',')
+	// // remove the white space in the string
+	// req.body.cast = req.body.cast.replace(/\s*, \s*/g, ',')
+	// req.body.cast = req.body.cast.split(',')
 
 	// THe server now tells the Model 
 	// to take the contents of the form (req.body) sent from the client
@@ -65,7 +65,7 @@ function create(req, res){
 		console.log('==========================================');
 
 		// respond to the client
-		res.redirect('/movies')
+		res.redirect(`/movies/${movieDoc._id}`)
 	}); // end of the callback function in Movie.create
 
 
