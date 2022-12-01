@@ -18,7 +18,16 @@
       <%= movie.nowShowing ? 'Yes' : 'Nope' %>
     </div>
     <!-- start cast list -->
-
+    <div>Cast:</div>
+    <ul>
+      <% movie.cast.forEach(actor=> { %>
+        <li>
+          <%= actor.name %> <small>
+              <%= actor.born.toLocaleDateString() %>
+            </small>
+        </li>
+        <% }) %>
+    </ul>
     <!-- end cast list -->
   </section>
   <!-- add to cast form below this comment -->

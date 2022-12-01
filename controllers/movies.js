@@ -15,29 +15,34 @@ module.exports = {
 function show(req, res) {
   // Movie is our model
   // Movie Model go find the movieDocument with this id (req.params.id, from the a tag http get request from the index page)
-  Movie.findById(req.params.id, function (err, movieDoc) {
-    console.log(movieDoc);
+  // .populate will replace the ids in array with the corresponding documents (in our case the performer docs)
+  // 'cast' is referring to the key name on the model with the array of id's
+  Movie.findById(req.params.id)
+    .populate("cast")
+    .exec(function (err, movieDoc) {
+		if(err) return res.send('there was an error finding the movie')
+      console.log(movieDoc);
 
-    // Lets find all the performers not in the Movie ^ we just found aka movieDoc's cast array
+      // Lets find all the performers not in the Movie ^ we just found aka movieDoc's cast array
 
-    // {_id: {$nin: movieDoc.cast} < - this read, find all the ids, not in the movieDoc's cast array
-    // mongoose syntax, query operators mongoose
-    Performer.find(
-      { _id: { $nin: movieDoc.cast } },
-      function (err, performersDocs) {
-        // responding to the clinet, and passing in the movieDoc as a variable called movie into the show page
-        console.log(performersDocs, " <- performers");
-        // performers represent all the people not in the movieDoc movie (cast)
-        // performers will be in the dropdown menu
+      // {_id: {$nin: movieDoc.cast} < - this read, find all the ids, not in the movieDoc's cast array
+      // mongoose syntax, query operators mongoose
+      Performer.find(
+        { _id: { $nin: movieDoc.cast } },
+        function (err, performersDocs) {
+          // responding to the clinet, and passing in the movieDoc as a variable called movie into the show page
+          console.log(performersDocs, " <- performers");
+          // performers represent all the people not in the movieDoc movie (cast)
+          // performers will be in the dropdown menu
 
-        res.render("movies/show", {
-          title: "Movie Detail",
-          movie: movieDoc,
-          performers: performersDocs,
-        });
-      }
-    ); // end of Performer.find
-  }); // end of Movie.findById
+          res.render("movies/show", {
+            title: "Movie Detail",
+            movie: movieDoc,
+            performers: performersDocs,
+          });
+        }
+      ); // end of Performer.find
+    }); // end of Movie.findById
 } // end of show
 
 function index(req, res) {
