@@ -1,9 +1,31 @@
 //import the Movie model to talk to the database!
+const movie = require("../models/movie");
 const Movie = require("../models/movie");
 
 module.exports = {
   create,
+  delete: deleteReview
 };
+
+function deleteReview(req, res){
+
+  // First have to find the Movie with the review
+  Movie.findOne({'reviews._id': req.params.id, 'reviews.user': req.user._id}, function(err, movieDoc){
+    // rogue user
+    if(!movieDoc) return res.redirect('/movies');
+
+    // remove the subdoc from the movie array
+    // req.params.id is the review subdoc id
+    movieDoc.reviews.remove(req.params.id);
+
+    movieDoc.save(function(err){
+      if(err) return res.send('err, check terminal fix this');
+      res.redirect(`/movies/${movieDoc._id}`)
+    })
+
+  })
+}
+
 
 // creating a review
 function create(req, res) {

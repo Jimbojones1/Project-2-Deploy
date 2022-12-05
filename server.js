@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
+const methodOverride = require('method-override');
 
 const indexRouter = require('./routes/index');
 const moviesRouter = require('./routes/movies');
@@ -26,7 +27,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
+app.use(methodOverride('_method'));
 // This will have to be before your controller routes and THE PASSPORT ROUTES!
 // This helps us identify what client (Who is making a request)
 app.use(session({
