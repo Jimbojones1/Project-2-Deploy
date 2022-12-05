@@ -12,14 +12,8 @@ async function connectDB(){
     useNewUrlParser: true,
     useUnifiedTopology: true,
       });
-  } catch(err){
-    console.log('err');
-    process.exit(1)
-  }
-}
 
-
-// shortcut to mongoose.connection object
+      // shortcut to mongoose.connection object
 const db = mongoose.connection;
 
 db.on("connected", function () {
@@ -29,6 +23,14 @@ db.on("connected", function () {
 db.on("error", function (err) {
   console.log(`There was an ${err}`);
 });
+  } catch(err){
+    console.log('err');
+    process.exit(1)
+  }
+}
+
+
+
 
 /// THE PURPOSE OF THIS FILE IS TO CREATE/CONNECT to a database, and establish a connection,
 // between our Express Server and Mongodb (our database server)
