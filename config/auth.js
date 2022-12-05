@@ -3,7 +3,7 @@
 // middleware function for our routes that check to see if the user is logged in or not!
 
 module.exports = function isLoggedIn(req, res, next){
-
+	console.log(req.user, 'req.user', req.isAuthenticated())
 	// check is the requse authenticated (aka are they lgged in) if they are just process the request
 	if(req.isAuthenticated()) return next();
 
