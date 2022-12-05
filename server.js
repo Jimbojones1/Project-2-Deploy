@@ -1,8 +1,11 @@
+require('dotenv').config(); // this will allow us to read the variables from the .env file!
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const session = require('express-session');
+
 
 const indexRouter = require('./routes/index');
 const moviesRouter = require('./routes/movies');
@@ -14,8 +17,9 @@ const app = express();
 // require the database
 require('./config/database') // this executes the database file, which establishes the connection with the db
 
-
-
+console.log(process.env.GOOGLE_CLIENT_ID)
+console.log(process.env.GOOGLE_SECRET)
+console.log(process.env.GOOGLE_CALLBACK)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,6 +29,15 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// This will have to be before your controller routes and THE PASSPORT ROUTES!
+// This helps us identify what client (Who is making a request)
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true
+}));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
