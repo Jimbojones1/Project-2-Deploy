@@ -16,10 +16,7 @@ const app = express();
 
 // require the database
 require('./config/database') // this executes the database file, which establishes the connection with the db
-
-console.log(process.env.GOOGLE_CLIENT_ID)
-console.log(process.env.GOOGLE_SECRET)
-console.log(process.env.GOOGLE_CALLBACK)
+require('./config/passport'); // <- require your configuration
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
