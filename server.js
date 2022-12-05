@@ -5,7 +5,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
-
+const passport = require('passport');
 
 const indexRouter = require('./routes/index');
 const moviesRouter = require('./routes/movies');
@@ -37,6 +37,10 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+
+// Passport needs to be after the session and before our controllers
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
