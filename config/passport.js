@@ -66,7 +66,7 @@ passport.use(
   // This function gets called on every request (besides login), clicking on a tag, typing in url bar
   // submitting a form, EVERY HTTP REQUEST FROM THE USER
   passport.deserializeUser(function(userId, cb){
-	console.log(user, ' this user id')
+	console.log(userId, ' this user id')
 	// this functions opens up the session cookie, 
 	//grabs the userId, ^ the argument userId, is from the session cookie
 	// and will attach the users document to req.user, which will be availiable in every single controller function
