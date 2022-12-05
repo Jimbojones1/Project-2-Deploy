@@ -84,7 +84,9 @@
               <% let total=0 %>
                 <% movie.reviews.forEach(function(r) { %>
                   <% total +=r.rating %>
+
                     <tr>
+                      <td class="review-user"><img alt="avatar" src="<%= r.userAvatar %>" referrerpolicy="no-referrer" ><%= r.userName %></td>
                       <td>
                         <%= r.createdAt.toLocaleDateString() %>
                       </td>

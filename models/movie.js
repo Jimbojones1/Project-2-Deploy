@@ -11,6 +11,11 @@ const reviewSchema = new Schema(
   {
     content: String,
     rating: { type: Number, min: 1, max: 5, default: 5 },
+    // A user has many reviews
+    // aka A review belongs to a user
+    user: {type: Schema.Types.ObjectId, ref: 'User', required: true},
+    userName: String,
+    userAvatar: String
   },
   {
     timestamps: true,

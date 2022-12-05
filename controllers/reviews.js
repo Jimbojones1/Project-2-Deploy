@@ -34,7 +34,9 @@ function create(req, res) {
     // found movie from the database that we want to add the review (req.body) to!
     console.log(movieDoc, " <- movie from the database!");
     console.log("========================");
-
+    req.body.user = req.user._id;
+    req.body.userName = req.user.name;
+    req.body.userAvatar = req.user.avatar;
     // 2. add the review to the movieDocuments reviews array
     // req.body (contents of the form), which in this case represents a review!
     movieDoc.reviews.push(req.body);
