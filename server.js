@@ -4,10 +4,11 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const redis = require('redis')
 const session = require('express-session');
 const passport = require('passport');
 const methodOverride = require('method-override');
+const MongoStore = require('connect-mongo');
+
 
 const indexRouter = require('./routes/index');
 const moviesRouter = require('./routes/movies');
@@ -31,16 +32,14 @@ app.use(cookieParser());
 app.use(methodOverride('_method'));
 
 
-let RedisStore = require('connect-redis')(session)
-let redisClient = redis.createClient()
 
-redisClient.on('error', (err) => console.log(`Fail to connect with redis. ${err}`));
-redisClient.on('connect', () => console.log('Successful to connect with redis'));
 
 // This will have to be before your controller routes and THE PASSPORT ROUTES!
 // This helps us identify what client (Who is making a request)
 app.use(session({
-  store: new RedisStore({ client: redisClient }),
+  store: MongoStore.create({
+    mongoUrl: process.env.DATABASE_URL
+  }),
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true
