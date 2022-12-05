@@ -12,33 +12,36 @@ module.exports = {
   show,
 };
 
-async function show(req, res) {
-  try {
-    // Find the movie, and replace the performer id's in the cast array with the performer docs
-    // aka populate the cast array
-    const movieDoc = await Movie.findById(req.params.id).populate("cast").exec();
-    // after we find the movieDoc
-    // then we want to find all the performers in our database that are not in the movieDoc.cast array
-    // They're not in the movie
-    const performerDocs = await Performer.find({ _id: { $nin: movieDoc.cast }});
-    // then respond to the client with our show page
+// async function show(req, res) {
+//   console.log(req.user, " <- logged in user")
+//   try {
+//     // Find the movie, and replace the performer id's in the cast array with the performer docs
+//     // aka populate the cast array
+//     const movieDoc = await Movie.findById(req.params.id).populate("cast").exec();
+//     // after we find the movieDoc
+//     // then we want to find all the performers in our database that are not in the movieDoc.cast array
+//     // They're not in the movie
+//     const performerDocs = await Performer.find({ _id: { $nin: movieDoc.cast }});
+//     // then respond to the client with our show page
 
-    res.render("movies/show", {
-      title: "Movie Detail",
-      movie: movieDoc,
-      performers: performersDocs,
-    });
+//     res.render("movies/show", {
+//       title: "Movie Detail",
+//       movie: movieDoc,
+//       performers: performersDocs,
+//     });
 
-  } catch (err) {
-    console.log(err);
-    res.send("error, check terminal");
-  }
-}
+//   } catch (err) {
+//     console.log(err);
+//     res.send("error, check terminal");
+//   }
+// }
 
 
 
 
 function show(req, res) {
+  console.log(req.user)
+  console.log(req.session)
   // Movie is our model
   // Movie Model go find the movieDocument with this id (req.params.id, from the a tag http get request from the index page)
   // .populate will replace the ids in array with the corresponding documents (in our case the performer docs)
@@ -64,7 +67,7 @@ function show(req, res) {
           res.render("movies/show", {
             title: "Movie Detail",
             movie: movieDoc,
-            performers: performersDocs,
+            performers: performersDocs
           });
         }
       ); // end of Performer.find
