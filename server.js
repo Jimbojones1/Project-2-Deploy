@@ -16,7 +16,7 @@ const performersRouter = require('./routes/performers');
 const app = express();
 
 // require the database
-require('./config/database') // this executes the database file, which establishes the connection with the db
+// require('./config/database') // this executes the database file, which establishes the connection with the db
 require('./config/passport'); // <- require your configuration
 
 // view engine setup

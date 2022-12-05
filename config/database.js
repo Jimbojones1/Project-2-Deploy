@@ -1,10 +1,23 @@
 const mongoose = require("mongoose");
 
 // /movies, connect to a movies database, or create a movies database
-mongoose.connect("mongodb://127.0.0.1:27017/moviess", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+
+module.exports = {
+  connectDB
+}
+
+async function connectDB(){
+  try {
+    mongoose.connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+      });
+  } catch(err){
+    console.log('err');
+    process.exit(1)
+  }
+}
+
 
 // shortcut to mongoose.connection object
 const db = mongoose.connection;
