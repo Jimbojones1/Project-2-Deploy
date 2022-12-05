@@ -70,6 +70,6 @@ passport.use(
 	User.findById(userId, function(err, userDoc){
 		if(err) return cb(err);
 		cb(null, userDoc); // this assigns the user document that we just found from the database to req.user
-		// req.user = userDoc
+		// this is essentially doing req.user = userDoc
 	})
   })

@@ -41,6 +41,19 @@ app.use(session({
 // Passport needs to be after the session and before our controllers
 app.use(passport.initialize());
 app.use(passport.session());
+// this middleware function that has to be after the passport
+// because we need req.user to be availiable
+app.use(function(req, res, next){
+  // res.locals, is an object that we can attach a property too, 
+  // and that property will become a variable in any ejs page that you have
+  res.locals.user = req.user; 
+  //<- req.user is from passport, so if the user is logged in, 
+  //it will be the user document, if not req.user will undefined
+
+  // inside of every single ejs page in your whole entire app will have 
+  // a user variable, that will be undefined or be the users document (logged in)
+  next()
+})
 
 app.use(express.static(path.join(__dirname, 'public')));
 
