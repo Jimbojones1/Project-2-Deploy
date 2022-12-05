@@ -17,13 +17,14 @@ passport.use(
 	  // The verify callback function
 	async function(accessToken, refreshToken, profile, cb) {
 		// a user has logged in with OAuth...
-
+		console.log('callback being called!!!!!')
 		// You will have to write this logic for your project below
 		try {
 			// first check has this user logged into our app before?
 			// search by the googleId property to see if the googleId exists in the database
 			// if it does the user has logged in before
 			let user = await User.findOne({googleId: profile.id});
+			console.log(user, ' this is user!!!!')
 			// if user document exists then pass the users information to the next middleware function
 			// if the user doens't exist user will be undefined
 			// the next place is passport.serializeUser which is located below
