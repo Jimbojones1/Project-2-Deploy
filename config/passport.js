@@ -38,6 +38,8 @@ passport.use(
 				email: profile.emails[0].value,
 				avatar: profile.photos[0].value
 			})
+
+			console.log(user, ' user created')
 			// once we create the user, pass the user to the next middleware function
 			// the next place is passport.serializeUser which is located below
 			return cb(null, user)
@@ -64,11 +66,14 @@ passport.use(
   // This function gets called on every request (besides login), clicking on a tag, typing in url bar
   // submitting a form, EVERY HTTP REQUEST FROM THE USER
   passport.deserializeUser(function(userId, cb){
+	console.log(user, ' this user id')
 	// this functions opens up the session cookie, 
 	//grabs the userId, ^ the argument userId, is from the session cookie
 	// and will attach the users document to req.user, which will be availiable in every single controller function
 	User.findById(userId, function(err, userDoc){
 		if(err) return cb(err);
+
+		console.log('insid deserialized uer', userDoc)
 		cb(null, userDoc); // this assigns the user document that we just found from the database to req.user
 		// this is essentially doing req.user = userDoc
 	})
