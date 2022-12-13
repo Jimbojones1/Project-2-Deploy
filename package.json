@@ -5,6 +5,10 @@
   "scripts": {
     "start": "node ./bin/www"
   },
+  "engines" : { 
+    "npm" : ">=8.0.0 <9.0.0",
+    "node" : ">=16.0.0 <17.0.0"
+  },
   "dependencies": {
     "connect-mongo": "^4.6.0",
     "connect-redis": "^6.1.3",
