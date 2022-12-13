@@ -11,7 +11,7 @@ router.get("/", function (req, res, next) {
 // they will be directed to the oauth consent screen
 router.get(
   "/auth/google",
-  passport.authenticate({
+  passport.authenticate('google', {
     prompt: "consent",
     scope: ["email", "profile"],
     session: false
