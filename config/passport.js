@@ -17,6 +17,14 @@ passport.use(
 	  // The verify callback function
 	async function(accessToken, refreshToken, profile, cb) {
 		// a user has logged in with OAuth...
+		console.log('===========================');
+		console.log(accessToken, ' accesstoken')
+		console.log(refreshToken, ' this is refresh token')
+
+		console.log('===========================')
+
+
+
 		console.log('callback being called!!!!!')
 		// You will have to write this logic for your project below
 		try {
