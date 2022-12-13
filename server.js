@@ -43,18 +43,19 @@ const options = {
 console.log(process.env.production, typeof process.env.production)
 if(process.env.production === 'true'){
   app.use(session({
-    store: new CyclicSessionStore(options),
+    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
     secret: process.env.SECRET,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false
   }));
   console.log('true is happening')
 } else {
   console.log('else is happening')
   app.use(session({
+   
     secret: process.env.SECRET,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false
   })); 
 }
 
