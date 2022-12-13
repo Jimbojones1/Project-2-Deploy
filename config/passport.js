@@ -75,7 +75,7 @@ passport.use(
 		if(err) return cb(err);
 
 		console.log('insid deserialized uer', userDoc)
-		cb(null, userDoc); // this assigns the user document that we just found from the database to req.user
+		return cb(null, userDoc); // this assigns the user document that we just found from the database to req.user
 		// this is essentially doing req.user = userDoc
 	})
   })

@@ -36,14 +36,25 @@ app.use(methodOverride('_method'));
 
 // This will have to be before your controller routes and THE PASSPORT ROUTES!
 // This helps us identify what client (Who is making a request)
-app.use(session({
-  store: MongoStore.create({
-    mongoUrl: process.env.DATABASE_URL
-  }),
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: true
-}));
+console.log(process.env.production, typeof process.env.production)
+if(process.env.production === 'true'){
+  app.use(session({
+    store: MongoStore.create({
+      mongoUrl: process.env.DATABASE_URL
+    }),
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true
+  }));
+} else {
+  console.log('else is happening')
+  app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true
+  })); 
+}
+
 
 // Passport needs to be after the session and before our controllers
 app.use(passport.initialize());

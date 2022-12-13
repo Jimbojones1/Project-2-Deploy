@@ -26,6 +26,6 @@ async function connectDB() {
 }
 
 /// THE PURPOSE OF THIS FILE IS TO CREATE/CONNECT to a database, and establish a connection,
-// between our Express Server and Mongodb (our database server)
+// between our Express Server and Mongodb (our database )
 
-// Require this file in our Server.js in order to execute it!
+
