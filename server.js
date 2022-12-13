@@ -46,6 +46,7 @@ if(process.env.production === 'true'){
     resave: false,
     saveUninitialized: true
   }));
+  console.log('true is happening')
 } else {
   console.log('else is happening')
   app.use(session({
