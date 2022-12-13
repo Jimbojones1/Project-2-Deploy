@@ -12,9 +12,7 @@ passport.use(
 	  {
 		clientID: process.env.GOOGLE_CLIENT_ID,
 		clientSecret: process.env.GOOGLE_SECRET,
-		callbackURL: process.env.GOOGLE_CALLBACK,
-		scope: [ 'profile', 'email' ],
-		state: false
+		callbackURL: process.env.GOOGLE_CALLBACK
 	  },
 	  // The verify callback function
 	async function(accessToken, refreshToken, profile, cb) {
@@ -34,7 +32,7 @@ passport.use(
 			// search by the googleId property to see if the googleId exists in the database
 			// if it does the user has logged in before
 			let user = await User.findOne({googleId: profile.id});
-			console.log(user, ' this is user!!!!')
+			
 			// if user document exists then pass the users information to the next middleware function
 			// if the user doens't exist user will be undefined
 			// the next place is passport.serializeUser which is located below
@@ -50,7 +48,7 @@ passport.use(
 				avatar: profile.photos[0].value
 			})
 
-			console.log(user, ' user created')
+			
 			// once we create the user, pass the user to the next middleware function
 			// the next place is passport.serializeUser which is located below
 			return cb(null, user)
@@ -82,9 +80,10 @@ passport.use(
 	//grabs the userId, ^ the argument userId, is from the session cookie
 	// and will attach the users document to req.user, which will be availiable in every single controller function
 	User.findById(userId, function(err, userDoc){
+		console.log(err, ' this is err is desiarlize user')
 		if(err) return cb(err);
 
-		console.log('insid deserialized uer', userDoc)
+		
 		return cb(null, userDoc); // this assigns the user document that we just found from the database to req.user
 		// this is essentially doing req.user = userDoc
 	})

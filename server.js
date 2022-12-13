@@ -19,7 +19,7 @@ const app = express();
 
 // require the database
 // require('./config/database') // this executes the database file, which establishes the connection with the db
-require('./config/passport'); // <- require your configuration
+// / <- require your configuration
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -60,6 +60,8 @@ if(process.env.production === 'true'){
 // Passport needs to be after the session and before our controllers
 app.use(passport.initialize());
 app.use(passport.session());
+
+require('./config/passport'); 
 // this middleware function that has to be after the passport
 // because we need req.user to be availiable
 app.use(function(req, res, next){

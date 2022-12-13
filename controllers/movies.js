@@ -81,7 +81,7 @@ function index(req, res) {
   Movie.find({}, function (err, movieDocs) {
     // moviesDocs is all of the movies
     // from our collection in mongodb!
-    console.log(movieDocs);
+   
 
     // respond to the client inside the callback of the model
     res.render("movies/index", { movies: movieDocs, name: "jim" });
@@ -117,7 +117,7 @@ function create(req, res) {
   // console.log(req.body, ' contents of the form');
   // update
   req.body.nowShowing = !!req.body.nowShowing;
-  console.log(req.body, " after");
+  
 
   // // remove the white space in the string
   // req.body.cast = req.body.cast.replace(/\s*, \s*/g, ',')
