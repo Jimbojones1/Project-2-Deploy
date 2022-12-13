@@ -27,6 +27,7 @@ router.get(
   passport.authenticate("google", {
     successRedirect: "/movies",
     failureRedirect: "/movies",
+    failureMessage: true
   })
 );
 
