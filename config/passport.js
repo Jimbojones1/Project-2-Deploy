@@ -68,7 +68,7 @@ passport.use(
   passport.serializeUser(function(user, cb){
 	// add the user's id to the session id to track the logged in user
 	// user is the user's document from the verify callback
-	cb(null, user._id)
+	return cb(null, user._id)
   })
 
 
