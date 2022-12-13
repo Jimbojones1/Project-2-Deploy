@@ -9,7 +9,7 @@ const passport = require('passport');
 const methodOverride = require('method-override');
 const MongoStore = require('connect-mongo');
 const nocache = require("nocache");
-
+const { CyclicSessionStore } = require("@cyclic.sh/session-store");
 const indexRouter = require('./routes/index');
 const moviesRouter = require('./routes/movies');
 const reviewsRouter = require('./routes/reviews');
@@ -31,7 +31,11 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(methodOverride('_method'));
 
-
+const options = {
+  table: {
+    name: process.env.CYCLIC_DB,
+  }
+};
 
 
 // This will have to be before your controller routes and THE PASSPORT ROUTES!
@@ -39,9 +43,7 @@ app.use(methodOverride('_method'));
 console.log(process.env.production, typeof process.env.production)
 if(process.env.production === 'true'){
   app.use(session({
-    store: MongoStore.create({
-      mongoUrl: process.env.DATABASE_URL
-    }),
+    store: new CyclicSessionStore(options),
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true
