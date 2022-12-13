@@ -65,6 +65,8 @@ require('./config/passport');
 // this middleware function that has to be after the passport
 // because we need req.user to be availiable
 app.use(function(req, res, next){
+
+  console.log(req.session, ' req.session')
   // res.locals, is an object that we can attach a property too, 
   // and that property will become a variable in any ejs page that you have
   res.locals.user = req.user; 
